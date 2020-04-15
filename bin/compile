@@ -22,6 +22,10 @@ echo "-----> Export requirements.txt from Poetry"
 
 cd "$BUILD_DIR"
 
+# Let poetry to install the deps into the system wide python
+poetry config virtualenvs.create false
+poetry install --no-dev
+
 # pip can't handle editable dependencies when requiring hashes (https://github.com/pypa/pip/issues/4995)
 poetry export -f requirements.txt -o requirements.txt --without-hashes
 
