@@ -14,7 +14,7 @@ function indent() {
 echo "-----> Generate requirements.txt with Poetry"
 
 echo "-----> Install Poetry"
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python | indent
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3.7 | indent
 
 source $HOME/.poetry/env
 
@@ -23,7 +23,10 @@ echo "-----> Export requirements.txt from Poetry"
 cd "$BUILD_DIR"
 
 # Let poetry to install the deps into the system wide python
+echo "-----> Poetry won't install all the deps into a virtualenv. "
 poetry config virtualenvs.create false
+
+echo "-----> Poetry is beginning to install the deps "
 poetry install --no-dev
 
 # pip can't handle editable dependencies when requiring hashes (https://github.com/pypa/pip/issues/4995)
